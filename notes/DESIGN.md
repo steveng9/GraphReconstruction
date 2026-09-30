@@ -122,3 +122,27 @@ use ~1/4 of the edges; on DCSBM it now declines BP where BP helped the targets.
   is just imputation?" (Jayaraman & Evans 2022).
 - Graph synthesis with privacy: AGM (Pfeiffer et al. 2014); AGM-DP (Jorgensen et
   al. 2016); DP graph generation surveys; GraphMaker (Li et al. 2024).
+
+## 6. PoC results snapshot (2026-09-30, commit after 382f4cf)
+
+These are proof-of-concept numbers, not paper results: 3 samples, 4-part node splits.
+
+- **synth/node, Amherst41** (holdout R_adv; Mode = 22.2): every attack lands at
+  24-26 on every release. With status + year as QI there is little signal, and
+  CoBP-G's honest calibration mostly (and correctly) falls back to its unary.
+  Identity members: RF/KNN/LGBM reach 99.6 through structural re-identification.
+- **synth/node, JohnsHopkins55**: CoBP-G is best on Identity non-members (28.6
+  vs RF 27.8; dorm 16.4 vs 14.0). NaiveBayes is the strongest attack on the
+  real generators (AGM 26.7, DCSBM 26.3), echoing the tabular SoK's finding
+  that simple NB rivals richer models.
+- **anchored (30% public)**: model-free NeighborVote 28-29 beats all release-based
+  attacks (~25); CoBP-G does not exploit anchors yet, even on Identity. **Top lead.**
+- **synth/edge, Amherst** (AUC, half the edges known): PairClassifier AGM/DCSBM
+  0.855, Identity 0.89, ChungLu 0.72 (the null release misleads it; heuristics
+  alone get 0.82). With attributes only it orders releases by coupling: ChungLu
+  0.53 < DCSBM 0.75 < AGM 0.77 < Identity 0.83 (members) / 0.78 (non-members).
+- **gnn/node, Amherst**: MI[uniform] on dorm, GCN: 21.9 members vs 14.8
+  non-members; Imputation shows no member advantage, so this is model leakage.
+  The marginal prior hurts under R_adv (it pulls predictions toward the mode).
+- **gnn/edge**: LinkStealing on Cora 0.93-0.95 AUC (matches He et al.), Amherst
+  0.77-0.83, against 0.83 / 0.70 from known-attribute similarity.
