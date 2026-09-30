@@ -1,0 +1,23 @@
+# PoC: link reconstruction from synthetic graphs. The adversary knows every target's
+# attributes and half of the friendships among targets; it scores the other half
+# against an equal number of non-friend pairs.
+name: poc_synth_edge_amherst
+dataset: {name: facebook100, params: {school: Amherst41}}
+split: {n_parts: 4, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: synth
+  seed: 0
+  methods: [{name: Identity}, {name: ChungLu}, {name: AGM}, {name: DCSBM}]
+task: {scope: edge, known_attrs: [status, gender, major, dorm, year]}
+knowledge: {observe_edges_frac: 0.5, neg_ratio: 1.0}
+target_splits: [train, holdout]
+attacks:
+  - {name: Random}
+  - {name: AttributeSimilarity}
+  - {name: CommonNeighbors}
+  - {name: AdamicAdar}
+  - {name: Jaccard}
+  - {name: PreferentialAttachment}
+  - {name: PairClassifier, label: "PairClf[attrs]", params: {use_structure: false}}
+  - {name: PairClassifier}

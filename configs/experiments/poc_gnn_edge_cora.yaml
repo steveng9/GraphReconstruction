@@ -1,0 +1,19 @@
+# PoC: link stealing (He et al. 2021, Attack-0) against GNNs served on their training graph.
+name: poc_gnn_edge_cora
+dataset: {name: planetoid, params: {name: Cora}}
+split: {n_parts: 3, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: gnn
+  seed: 0
+  train: {label: label}
+  methods: [{name: GCN}, {name: SAGE}, {name: GAT}]
+task: {scope: edge, known_attrs: [label]}
+knowledge: {observe_edges_frac: 0.0, neg_ratio: 1.0}
+target_splits: [train]
+attacks:
+  - {name: Random}
+  - {name: AttributeSimilarity}
+  - {name: LinkStealing, label: "LinkSteal[correlation]"}
+  - {name: LinkStealing, label: "LinkSteal[cosine]", params: {distance: cosine}}
+  - {name: LinkStealing, label: "LinkSteal[euclidean]", params: {distance: euclidean}}

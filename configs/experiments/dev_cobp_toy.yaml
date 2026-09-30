@@ -1,0 +1,16 @@
+# CoBP-G design ablation on the toy graph: which evidence goes in the unary vs. the BP.
+name: dev_cobp_toy
+dataset: {name: toy_sbm}
+split: {n_parts: 3, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: synth
+  methods: [{name: Identity}, {name: ChungLu}, {name: AGM}, {name: DCSBM}]
+task: {scope: node, qi: [qi, noise], hidden: [label]}
+target_splits: [train, holdout]
+attacks:
+  - {name: RandomForest, label: "RF[local]", params: {features: [qi, structure]}}
+  - {name: RandomForest, label: "RF[local+nbr]"}
+  - {name: CoBP-G, label: "CoBP[nbr-unary,residual]"}
+  - {name: CoBP-G, label: "CoBP[local-unary,residual]", params: {unary_params: {features: [qi, structure]}}}
+  - {name: CoBP-G, label: "CoBP[local-unary,pmi]", params: {unary_params: {features: [qi, structure]}, potential: pmi}}

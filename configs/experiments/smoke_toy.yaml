@@ -1,0 +1,20 @@
+# Sanity check on a planted-partition graph: the hidden label is strongly homophilous
+# and the QI is a weak noisy copy of it, so propagation over edges must help.
+name: smoke_toy
+dataset: {name: toy_sbm}
+split: {n_parts: 3, seed: 0}
+samples: [0]
+release:
+  kind: synth
+  methods:
+    - {name: Identity}
+    - {name: ChungLu}
+    - {name: AGM}
+task: {scope: node, qi: [qi, noise], hidden: [label]}
+target_splits: [train, holdout]
+attacks:
+  - {name: Mode}
+  - {name: RandomForest, label: "RF[qi]", params: {features: [qi]}}
+  - {name: RandomForest, label: "RF[qi+graph]"}
+  - {name: GNNClassifier}
+  - {name: CoBP-G}

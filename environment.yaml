@@ -1,0 +1,22 @@
+# conda env create -f environment.yaml && conda activate graphrecon_
+name: graphrecon_
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu121
+      - torch==2.4.1        # torch 2.4 is also the newest DGL 2.4 supports, if DGL is ever needed
+      - torch_geometric==2.6.1
+      - ogb
+      - numpy<2
+      - pandas
+      - scipy
+      - scikit-learn
+      - lightgbm
+      - networkx
+      - pyyaml
+      - tqdm
+      - matplotlib
+      - pytest
+      - -e .

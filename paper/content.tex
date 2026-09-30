@@ -1,0 +1,61 @@
+\section{Introduction}
+\label{sec:intro}
+\todo{Motivation: graphs encode relationships (social, financial, molecular, biomedical) that are the sensitive part.}
+\todo{Gap: membership inference on graphs is well studied; reconstruction of the graph itself from each kind of release is not. State precisely what is missing.}
+\todo{Contributions (3 bullets): attack(s), a unified threat-model taxonomy, empirical results across GNNs and synthetic graph generators.}
+
+\section{Background and Related Work}
+\label{sec:related}
+\paragraph{Graph learning and graph synthetic data.}
+A graph is $G=(V,E,X)$ with node set $V$, edge set $E$, and node features $X\in\R^{|V|\times d}$. GNNs~\citep{kipf2017semi} learn by message passing over $E$. \todo{Synthetic graph generators: classical (ER, SBM, configuration model), deep (GraphRNN-style, diffusion-based), DP variants.}
+
+\paragraph{Privacy attacks.}
+Membership inference~\citep{shokri2017membership} asks whether a record was used; reconstruction asks for the record itself. \todo{Related work on link stealing, graph reconstruction from embeddings/gradients, model inversion, attribute inference on graphs.}
+
+\begin{table}[t]
+  \centering
+  \caption{Working taxonomy: what the adversary tries to reconstruct (rows) vs.\ what is released (columns). Fill in which cells are covered by prior work and which by us.}
+  \label{tab:taxonomy}
+  \small
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Target & GNN outputs & GNN weights/grads & Synthetic graph \\
+    \midrule
+    Links (edges)        & \todo{} & \todo{} & \todo{} \\
+    Node attributes      & \todo{} & \todo{} & \todo{} \\
+    Node labels          & \todo{} & \todo{} & \todo{} \\
+    Graph-level (whole)  & \todo{} & \todo{} & \todo{} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Problem Setup and Threat Model}
+\label{sec:threat}
+\todo{Define: private graph $G$, release $\mathcal{R}(G)$, adversary knowledge (auxiliary graph? partial edges? model access: black-box/white-box?), adversary goal (reconstruct $E$, $X$, labels, or $G$ up to isomorphism).}
+\todo{Metrics: edge AUC / precision@$k$ / F1, attribute accuracy or RMSE, graph edit distance or degree/clustering statistics for graph-level.}
+
+\section{Attack Design}
+\label{sec:attack}
+\subsection{Attack A (working name)}
+\todo{Intuition first, then algorithm. Use an \texttt{algorithm} block if it is procedural.}
+\subsection{Attack B (working name)}
+\todo{}
+
+\section{Experimental Setup}
+\label{sec:setup}
+\todo{Datasets (Cora/Citeseer/PubMed, OGB, molecular sets for graph-level), target models (GCN, GraphSAGE, GAT, GIN), synthetic graph generators, baselines, seeds, compute.}
+
+\section{Results}
+\label{sec:results}
+\todo{Main table + one figure. Report mean $\pm$ std over seeds.}
+% \begin{figure}[t]
+%   \centering
+%   \includegraphics[width=\linewidth]{figs/main_result}
+%   \caption{}
+%   \label{fig:main}
+% \end{figure}
+
+\section{Discussion, Defenses, and Limitations}
+\label{sec:discussion}
+\todo{Does DP (edge-level vs node-level) stop these attacks? What do defenses cost?}
+\todo{Limitations and ethical considerations.}

@@ -1,0 +1,39 @@
+% =====================================================================
+%  macros.tex -- shared by main_neurips.tex AND main_acm.tex.
+%  Only put things here that work under BOTH classes. Class-specific
+%  setup (theorem environments, hyperref, fonts) lives in the main files.
+% =====================================================================
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ---- theorem-like environments not provided by acmart -------------
+\ifcsname remark\endcsname\else\newtheorem{remark}{Remark}\fi
+
+% ---- draft-notes switch --------------------------------------------
+%  \shownotestrue  : inline \todo/\note marks AND the notes.tex appendix print.
+%  \shownotesfalse : they all vanish -- do this before you submit.
+\newif\ifshownotes
+\shownotestrue
+
+\newcommand{\todo}[1]{\ifshownotes{\textcolor{red}{[TODO: #1]}}\fi}
+\newcommand{\note}[1]{\ifshownotes{\textcolor{blue}{[Note: #1]}}\fi}
+\newcommand{\idea}[1]{\ifshownotes{\textcolor{orange}{[Idea: #1]}}\fi}
+\newcommand{\needcite}{\ifshownotes{\textcolor{red}{[cite?]}}\fi}
+
+% ---- common math ----------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Lap}{\mathrm{Lap}}
+
+% graph notation
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\adj}{A}
+
+
+\newcommand{\paperTitle}{Reconstruction Attacks on Graph Neural Networks and Graph Synthetic Data}

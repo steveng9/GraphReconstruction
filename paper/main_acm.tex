@@ -1,0 +1,52 @@
+% =====================================================================
+%  ACM two-column build (acmart, sigconf).  Content lives in abstract.tex,
+%  content.tex, appendix.tex, notes.tex, refs.bib -- NOT here.
+%  Pair: main_neurips.tex.  In Overleaf: Menu > Main document.
+% =====================================================================
+\documentclass[sigconf,review,anonymous]{acmart}
+% Camera-ready: \documentclass[sigconf]{acmart}
+% IEEE two-column instead? swap the class line (and \author/\affiliation
+% blocks) for IEEEtran; content.tex does not need to change.
+
+\AtBeginDocument{\providecommand\BibTeX{{Bib\TeX}}}
+
+% acmart already loads hyperref, booktabs, xcolor, graphicx, amsmath,
+% amssymb, subcaption, natbib -- don't reload them.
+\input{macros}
+
+% Rights management (placeholders -- replace from your rights email)
+\setcopyright{acmlicensed}
+\copyrightyear{2026}
+\acmYear{2026}
+\acmDOI{XXXXXXX.XXXXXXX}
+\acmConference[Conference acronym 'XX]{Conference title}{Month DD--DD, 2026}{City, Country}
+\acmISBN{978-1-4503-XXXX-X/2026/MM}
+
+\begin{document}
+
+\title{\paperTitle}
+
+\author{Steven Golob}
+\email{golobs@uw.edu}
+\affiliation{%
+  \institution{University of Washington Tacoma}
+  \country{USA}
+}
+% \author{Co-author} \affiliation{\institution{...}\country{...}}
+
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+\maketitle
+
+\input{content}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{refs}
+
+\appendix
+\input{appendix}
+\ifshownotes\input{notes}\fi
+
+\end{document}

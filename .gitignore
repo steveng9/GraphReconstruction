@@ -1,0 +1,26 @@
+# Generated data, releases, attack outputs, results DB (reproducible from configs)
+workspace/
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# LaTeX build products
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

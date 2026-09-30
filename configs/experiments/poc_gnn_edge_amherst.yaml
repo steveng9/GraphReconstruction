@@ -1,0 +1,19 @@
+# PoC: link stealing (He et al. 2021, Attack-0) against GNNs served on their training graph.
+name: poc_gnn_edge_amherst
+dataset: {name: facebook100, params: {school: Amherst41}}
+split: {n_parts: 4, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: gnn
+  seed: 0
+  train: {label: year}
+  methods: [{name: GCN}, {name: SAGE}, {name: GAT}]
+task: {scope: edge, known_attrs: [status, year]}
+knowledge: {observe_edges_frac: 0.0, neg_ratio: 1.0}
+target_splits: [train]
+attacks:
+  - {name: Random}
+  - {name: AttributeSimilarity}
+  - {name: LinkStealing, label: "LinkSteal[correlation]"}
+  - {name: LinkStealing, label: "LinkSteal[cosine]", params: {distance: cosine}}
+  - {name: LinkStealing, label: "LinkSteal[euclidean]", params: {distance: euclidean}}

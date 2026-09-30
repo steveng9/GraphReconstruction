@@ -1,0 +1,22 @@
+# PoC: model inversion against GNNs. A GNN predicts class year from every other attribute
+# (so gender, major, dorm are model *inputs*). The adversary knows status and year (the
+# model's output) of each target and the target graph, holds auxiliary population data
+# (a disjoint node part), and queries the model black-box on graphs of its choosing.
+name: poc_gnn_node_amherst
+dataset: {name: facebook100, params: {school: Amherst41}}
+split: {n_parts: 4, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: gnn
+  seed: 0
+  train: {label: year}
+  methods: [{name: GCN}, {name: SAGE}, {name: GAT}]
+task: {scope: node, qi: [status, year], hidden: [gender, major, dorm]}
+adversary: {aux: true}
+target_splits: [train, holdout]
+attacks:
+  - {name: Mode}
+  - {name: Imputation}                                                  # no model access
+  - {name: ModelInversion, label: "MI[uniform prior]", params: {prior: uniform}}
+  - {name: ModelInversion, label: "MI[marginal prior]", params: {prior: aux_marginal}}
+  - {name: ModelInversion, label: "MI+Imputation"}

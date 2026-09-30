@@ -1,0 +1,21 @@
+# As poc_synth_node_amherst, but 30% of targets have public hidden attributes (e.g. open
+# profiles). Their values are anchors for propagation and are excluded from scoring.
+name: poc_synth_node_amherst_anchored
+dataset: {name: facebook100, params: {school: Amherst41}}
+split: {n_parts: 4, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: synth
+  seed: 0
+  methods: [{name: Identity}, {name: ChungLu}, {name: AGM}, {name: DCSBM}]
+task: {scope: node, qi: [status, year], hidden: [gender, major, dorm]}
+knowledge: {observe_edges_frac: 1.0, known_label_frac: 0.3}
+target_splits: [train, holdout]
+attacks:
+  - {name: Mode}
+  - {name: RandomForest, label: "RF[qi]", params: {features: [qi]}}
+  - {name: RandomForest, label: RF}
+  - {name: GNNClassifier}
+  - {name: NeighborVote}                  # relational baseline: votes of known neighbours
+  - {name: CoBP-G}
+  - {name: CoBP-G, label: "CoBP-G[graph only]", params: {row_factors: false}}

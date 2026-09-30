@@ -1,0 +1,66 @@
+% =====================================================================
+%  NeurIPS build.  Content lives in abstract.tex, content.tex,
+%  appendix.tex, notes.tex, refs.bib -- NOT here.  Pair: main_acm.tex.
+%  In Overleaf: Menu > Main document to choose which one compiles.
+% =====================================================================
+\documentclass{article}
+
+% Submission (anonymous) by default. Other options from the official
+% template: [preprint], [final], [main], [position], [dblblindworkshop],
+% [sglblindworkshop], ...  e.g. \usepackage[preprint]{neurips_2026}
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{amsthm}
+
+% theorem environments (acmart predefines these; NeurIPS does not)
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\input{macros}
+
+\title{\paperTitle}
+
+\author{%
+  Steven Golob \\
+  University of Washington Tacoma \\
+  \texttt{golobs@uw.edu} \\
+  % \And  Co-author \\ Affiliation \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
+
+\input{content}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\input{appendix}
+\ifshownotes\input{notes}\fi
+
+% NeurIPS requires the paper checklist after the appendix; copy it from
+% the official neurips_2026.tex template when you get near submission.
+% \input{checklist}
+
+\end{document}

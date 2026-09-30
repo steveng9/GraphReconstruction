@@ -1,0 +1,37 @@
+# PoC: node-attribute reconstruction from synthetic graphs (the SoK paradigm, on graphs).
+# Adversary knows status + class year of every target and the friendships among targets;
+# it reconstructs gender, major and dorm.
+name: poc_synth_node_jhu
+description: Facebook100 JohnsHopkins55, 4 generators, baselines / classifiers / GNN / CoBP-G
+dataset: {name: facebook100, params: {school: JohnsHopkins55}}
+split: {n_parts: 4, seed: 0}
+samples: [0, 1, 2]
+release:
+  kind: synth
+  seed: 0
+  methods:
+    - {name: Identity}      # naive anonymisation (reference ceiling)
+    - {name: ChungLu}       # null: structure independent of attributes
+    - {name: AGM}
+    - {name: DCSBM}
+task: {scope: node, qi: [status, year], hidden: [gender, major, dorm]}
+knowledge: {observe_edges_frac: 1.0}
+target_splits: [train, holdout]     # members / non-members (memorization test)
+save_predictions: true
+attacks:
+  # reference points
+  - {name: Mode}
+  - {name: Random}
+  # classifiers: tabular (QI only) vs graph-aware features
+  - {name: RandomForest, label: "RF[qi]", params: {features: [qi]}}
+  - {name: RandomForest, label: RF}
+  - {name: LightGBM}
+  - {name: LogisticRegression}
+  - {name: MLP}
+  - {name: NaiveBayes}
+  - {name: KNN}
+  - {name: GNNClassifier}
+  # classifier + belief propagation
+  - {name: CoBP-G}
+  - {name: CoBP-G, label: "CoBP-G[graph only]", params: {row_factors: false}}
+  - {name: CoBP-G, label: "CoBP-G[row only]", params: {graph_factors: false}}
